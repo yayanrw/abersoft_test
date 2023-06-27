@@ -19,3 +19,9 @@ extension UserCredentialsPreferenceExt on UserCredentialsPreference {
     return UserCredentials(isLoggedIn: isLoggedIn, token: token ?? "N/A");
   }
 }
+
+extension UserCredentialsExt on UserCredentials {
+  UserCredentialsPreference toPreference() {
+    return UserCredentialsPreference(isLoggedIn: isLoggedIn, token: token);
+  }
+}
