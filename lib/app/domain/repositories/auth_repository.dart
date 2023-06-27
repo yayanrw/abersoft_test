@@ -1,4 +1,4 @@
-import 'package:abersoft_test/app/configs/utils/failure.dart';
+import 'package:abersoft_test/app/core/utils/failure.dart';
 import 'package:abersoft_test/app/data/datasources/index.dart';
 import 'package:dartz/dartz.dart';
 
