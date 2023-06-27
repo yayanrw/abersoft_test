@@ -1,7 +1,8 @@
-export 'dtos/product_dto.dart';
-export 'requests/login_request.dart';
-export 'responses/login_response.dart';
-export 'responses/products_response.dart';
+export 'local/shared_preferences/user_credentials_preference.dart';
+export 'remote/dtos/product_dto.dart';
+export 'remote/requests/login_request.dart';
+export 'remote/responses/login_response.dart';
+export 'remote/responses/products_response.dart';
 import 'package:quiver/core.dart';
 
 T? checkOptional<T>(Optional<T?>? optional, T? Function()? def) {

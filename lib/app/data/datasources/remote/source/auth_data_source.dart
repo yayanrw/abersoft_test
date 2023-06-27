@@ -1,4 +1,6 @@
-import 'package:abersoft_test/app/data/datasources/remote/index.dart';
+
+import 'package:abersoft_test/app/data/datasources/remote/requests/login_request.dart';
+import 'package:abersoft_test/app/data/datasources/remote/responses/login_response.dart';
 
 abstract class AuthDataSource {
   Future<LoginResponse> fetchLogIn(LoginRequest loginRequest);

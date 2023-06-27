@@ -1,4 +1,5 @@
-import 'package:abersoft_test/app/data/datasources/remote/index.dart';
+import 'package:abersoft_test/app/data/datasources/remote/dtos/product_dto.dart';
+import 'package:abersoft_test/app/data/datasources/remote/responses/products_response.dart';
 
 abstract class ProductDataSource {
   Future<ProductsResponse> fetchProducts();
