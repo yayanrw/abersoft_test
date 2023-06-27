@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/create_product_controller.dart';
+import 'create_product_controller.dart';
 
 class CreateProductView extends GetView<CreateProductController> {
   const CreateProductView({Key? key}) : super(key: key);

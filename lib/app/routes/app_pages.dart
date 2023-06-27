@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import '../presentation/pages/create_product/bindings/create_product_binding.dart';
-import '../presentation/pages/create_product/views/create_product_view.dart';
-import '../presentation/pages/home/bindings/home_binding.dart';
-import '../presentation/pages/home/views/home_view.dart';
-import '../presentation/pages/log_in/bindings/log_in_binding.dart';
-import '../presentation/pages/log_in/views/log_in_view.dart';
+import '../presentation/pages/create_product/create_product_binding.dart';
+import '../presentation/pages/create_product/create_product_view.dart';
+import '../presentation/pages/home/home_binding.dart';
+import '../presentation/pages/home/home_view.dart';
+import '../presentation/pages/log_in/log_in_binding.dart';
+import '../presentation/pages/log_in/log_in_view.dart';
 
 part 'app_routes.dart';
 

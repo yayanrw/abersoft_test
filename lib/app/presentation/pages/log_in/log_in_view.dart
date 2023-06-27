@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/log_in_controller.dart';
+import 'log_in_controller.dart';
 
 class LogInView extends GetView<LogInController> {
   const LogInView({Key? key}) : super(key: key);
