@@ -1,4 +1,5 @@
 export 'dtos/product_dto.dart';
+export 'requests/login_request.dart';
 export 'responses/login_response.dart';
 export 'responses/products_response.dart';
 import 'package:quiver/core.dart';
