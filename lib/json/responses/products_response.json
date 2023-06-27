@@ -1,0 +1,4 @@
+{
+    "bestProduct?": "$[]../dtos/product_dto",
+    "allProduct?": "$[]../dtos/product_dto"
+}
