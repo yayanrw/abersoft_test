@@ -7,7 +7,12 @@ class Product extends Equatable {
   final String imageUrl;
   final String productDescription;
 
-  const Product(this.id, this.name, this.imageUrl, this.productDescription);
+  const Product({
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+    required this.productDescription,
+  });
 
   @override
   List<Object?> get props => [
@@ -21,10 +26,10 @@ class Product extends Equatable {
 extension ProductDtoExt on ProductDto {
   Product toEntity() {
     return Product(
-      id ?? 0,
-      name ?? "N/A",
-      imageUrl ?? "N/A",
-      productDescription ?? "N/A",
+      id: id ?? 0,
+      name: name ?? "N/A",
+      imageUrl: imageUrl ?? "N/A",
+      productDescription: productDescription ?? "N/A",
     );
   }
 }
