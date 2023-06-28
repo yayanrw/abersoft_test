@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:abersoft_test/app/core/config/constants.dart';
 import 'package:abersoft_test/app/core/utils/exceptions.dart';
 import 'package:abersoft_test/app/core/utils/failure.dart';
+import 'package:abersoft_test/app/core/utils/snackbar_helper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
   static Map<String, String> defaultHeader = {
     'Accept': 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded',
   };
 
   static Map<String, String> headerWithToken(String? token) {
@@ -37,6 +37,53 @@ class NetworkHelper {
     } on SocketException {
       return const Left(ConnectionFailure("Connection failed"));
     }
+  }
+
+  static Future<T?> callDataService<T>(
+    Future<Either<Failure, T>> Function() future, {
+    bool isLoading = true,
+    Function(T response)? onSuccess,
+    Function(dynamic e)? onError,
+    Function()? onDone,
+  }) async {
+    try {
+      final Either<Failure, T> response = await future();
+
+      response.fold((failure) {
+        if (onError != null) {
+          if (failure is ServerFailure) {
+            throw ServerException();
+          }
+          if (failure is ApplicationFailure) {
+            throw ApplicationException(failure.message);
+          }
+          if (failure is ConnectionFailure) {
+            throw SocketException(failure.message);
+          }
+          onError(failure);
+        } else {
+          SnackBarHelper.error(title: "Error", message: failure.message);
+        }
+        return failure;
+      }, (success) {
+        if (onSuccess != null) onSuccess(success);
+        return success;
+      });
+    } on ServerException {
+      SnackBarHelper.error(
+        title: "Server Error",
+        message:
+            "An error occured when connecting to the server, please try again.",
+      );
+    } on ApplicationException catch (e) {
+      SnackBarHelper.error(title: "Error", message: e.message);
+    } on SocketException catch (e) {
+      SnackBarHelper.error(title: "Error Connection", message: e.message);
+    } finally {
+      if (isLoading) false;
+      if (onDone != null) onDone();
+    }
+    return null;
   }
 
   static Uri genUri(String endPoint) {
