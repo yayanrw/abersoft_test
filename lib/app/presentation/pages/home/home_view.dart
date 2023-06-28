@@ -16,6 +16,17 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Abersoft Flutter Test"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              controller.logOut();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(child: GetBuilder<HomeController>(
           builder: (controller) {
