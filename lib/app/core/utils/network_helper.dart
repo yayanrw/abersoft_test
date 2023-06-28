@@ -20,7 +20,7 @@ class NetworkHelper {
   static void throwExceptionIfClientError(http.Response response) {
     if (response.statusCode >= 400 && response.statusCode <= 499) {
       final errorResponse = jsonDecode(response.body);
-      final message = errorResponse['message'];
+      final message = errorResponse['error']['message'];
       throw ApplicationException(message);
     }
   }
@@ -73,7 +73,7 @@ class NetworkHelper {
             "An error occured when connecting to the server, please try again.",
       );
     } on ApplicationException catch (e) {
-      SnackBarHelper.error(title: "Error", message: e.message);
+      SnackBarHelper.warning(title: "Warning", message: e.message);
     } on SocketException catch (e) {
       SnackBarHelper.error(title: "Error Connection", message: e.message);
     } finally {
