@@ -1,4 +1,4 @@
-import 'package:abersoft_test/app/presentation/widgets/button_widget.dart';
+import 'package:abersoft_test/app/presentation/widgets/buttons/button_widget.dart';
 import 'package:abersoft_test/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
