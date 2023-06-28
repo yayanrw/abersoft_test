@@ -17,6 +17,7 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.5
   flutter_gen: ^5.3.1
+  form_validator: ^2.1.1
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_gen_runner: ^5.3.1
