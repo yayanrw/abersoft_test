@@ -4,6 +4,7 @@ import 'package:abersoft_test/app/presentation/widgets/shimmers/products_grid_sh
 import 'package:abersoft_test/app/presentation/widgets/shimmers/products_horizontal_shimmer_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/SubTitleWidget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/TitleWidget.dart';
+import 'package:abersoft_test/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +42,15 @@ class HomeView extends GetView<HomeController> {
             );
           },
         )),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24),
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(Routes.CREATE_PRODUCT);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

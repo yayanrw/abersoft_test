@@ -19,6 +19,7 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      transition: Transition.downToUp,
     ),
     GetPage(
       name: _Paths.LOG_IN,
@@ -29,6 +30,7 @@ class AppPages {
       name: _Paths.CREATE_PRODUCT,
       page: () => const CreateProductView(),
       binding: CreateProductBinding(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }
