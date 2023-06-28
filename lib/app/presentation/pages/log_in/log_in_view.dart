@@ -1,7 +1,7 @@
 import 'package:abersoft_test/app/presentation/widgets/buttons/button_widget.dart';
+import 'package:abersoft_test/app/presentation/widgets/text_form_fields/input_text_widget.dart';
 import 'package:abersoft_test/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
 
 import 'log_in_controller.dart';
@@ -30,23 +30,16 @@ class LogInView extends GetView<LogInController> {
                     const SizedBox(height: 84),
                     Assets.images.abersoft.image(height: 53),
                     const SizedBox(height: 119),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
+                    InputTextWidget(
                       controller: controller.usernameController,
-                      decoration: const InputDecoration(
-                        hintText: "Username",
-                      ),
-                      validator: ValidationBuilder().required().build(),
+                      hintText: "Username",
+                      isObscureText: false,
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      obscureText: true,
-                      keyboardType: TextInputType.text,
+                    InputTextWidget(
                       controller: controller.passwordController,
-                      decoration: const InputDecoration(
-                        hintText: "Password",
-                      ),
-                      validator: ValidationBuilder().required().build(),
+                      hintText: "Password",
+                      isObscureText: true,
                     ),
                     const SizedBox(height: 25),
                     Obx(

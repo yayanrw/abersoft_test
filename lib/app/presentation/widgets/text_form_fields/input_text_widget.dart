@@ -6,14 +6,17 @@ class InputTextWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
+    required this.isObscureText,
   });
 
   final TextEditingController controller;
   final String hintText;
+  final bool isObscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isObscureText,
       keyboardType: TextInputType.text,
       controller: controller,
       decoration: InputDecoration(
