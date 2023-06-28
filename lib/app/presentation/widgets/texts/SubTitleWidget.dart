@@ -7,12 +7,15 @@ class SubTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
+    return Padding(
+      padding: const EdgeInsets.only(left: 18),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
