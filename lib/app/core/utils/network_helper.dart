@@ -49,26 +49,23 @@ class NetworkHelper {
     try {
       final Either<Failure, T> response = await future();
 
-      response.fold((failure) {
-        if (onError != null) {
-          if (failure is ServerFailure) {
-            throw ServerException();
+      response.fold(
+        (failure) {
+          if (onError != null) {
+            _handleFailure(failure);
+            onError(failure);
+          } else {
+            _handleFailure(failure);
           }
-          if (failure is ApplicationFailure) {
-            throw ApplicationException(failure.message);
+          return failure;
+        },
+        (success) {
+          if (onSuccess != null) {
+            onSuccess(success);
           }
-          if (failure is ConnectionFailure) {
-            throw SocketException(failure.message);
-          }
-          onError(failure);
-        } else {
-          SnackBarHelper.error(title: "Error", message: failure.message);
-        }
-        return failure;
-      }, (success) {
-        if (onSuccess != null) onSuccess(success);
-        return success;
-      });
+          return success;
+        },
+      );
     } on ServerException {
       SnackBarHelper.error(
         title: "Server Error",
@@ -84,6 +81,16 @@ class NetworkHelper {
       if (onDone != null) onDone();
     }
     return null;
+  }
+
+  static void _handleFailure(Failure failure) {
+    if (failure is ServerFailure) {
+      throw ServerException();
+    } else if (failure is ApplicationFailure) {
+      throw ApplicationException(failure.message);
+    } else if (failure is ConnectionFailure) {
+      throw SocketException(failure.message);
+    }
   }
 
   static Uri genUri(String endPoint) {
