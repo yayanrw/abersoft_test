@@ -27,10 +27,7 @@ class ButtonWidget extends StatelessWidget {
             ),
           ),
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return Colors.blue[300]!;
-            }
-            return Colors.blue;
+           return isLoading ? Colors.blue[300]! : const Color(0xFF0389F7);
           }),
         ),
         onPressed: isLoading ? null : onPressed,
