@@ -2,6 +2,7 @@ import 'package:abersoft_test/app/core/utils/network_helper.dart';
 import 'package:abersoft_test/app/core/utils/snackbar_helper.dart';
 import 'package:abersoft_test/app/data/datasources/index.dart';
 import 'package:abersoft_test/app/domain/usecases/log_in.dart';
+import 'package:abersoft_test/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +15,10 @@ class LogInController extends GetxController {
   RxBool isLoading = false.obs;
 
   @override
-  void onDispose() {
+  void dispose() {
     usernameController.dispose();
     passwordController.dispose();
-    super.onClose();
+    super.dispose();
   }
 
   void handleLogin() async {
@@ -32,6 +33,8 @@ class LogInController extends GetxController {
       onSuccess: ((response) async {
         SnackBarHelper.success(
             message: "Login successfully, redirecting to home page.");
+        await Future.delayed(1.seconds);
+        Get.offAllNamed(Routes.HOME);
       }),
       onDone: () async {
         isLoading.value = false;
