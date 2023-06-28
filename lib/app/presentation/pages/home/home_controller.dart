@@ -9,6 +9,7 @@ class HomeController extends GetxController {
 
   List<Product> bestProducts = [];
   List<Product> allProducts = [];
+  bool isLoading = true;
 
   @override
   void onInit() {
@@ -17,24 +18,28 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() async {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+  void dispose() {
+    super.dispose();
+    bestProducts = [];
+    allProducts = [];
+    isLoading = true;
   }
 
   Future<void> getProducts() async {
+    isLoading = true;
+    update();
     await NetworkHelper.callDataService<Products>(
       () => _productRepository.getProducts(),
       onSuccess: ((response) async {
         bestProducts.assignAll(response.bestProduct);
         allProducts.assignAll(response.allProduct);
       }),
-      onError: ((response) async {}),
+      onError: ((response) async {
+        isLoading = false;
+        update();
+      }),
       onDone: () {
+        isLoading = false;
         update();
       },
     );
