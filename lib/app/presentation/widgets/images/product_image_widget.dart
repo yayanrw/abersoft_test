@@ -26,23 +26,6 @@ class ProductImageWidget extends StatelessWidget {
           placeholder: (context, url) =>
               const Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => const Icon(Icons.error),
-          imageBuilder: (context, imageProvider) => Builder(
-            builder: (BuildContext context) {
-              return Container(
-                width: 145,
-                height: 96,
-                margin: EdgeInsets.only(right: isLastItem ? 0 : 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: const BorderRadius.all(Radius.circular(16)),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            },
-          ),
         ),
       ),
     );

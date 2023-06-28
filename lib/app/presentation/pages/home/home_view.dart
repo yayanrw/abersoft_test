@@ -1,6 +1,6 @@
+import 'package:abersoft_test/app/presentation/widgets/images/product_image_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/SubTitleWidget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/TitleWidget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,32 +14,44 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 19),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TitleWidget(text: "Our Portofolio"),
-              const SizedBox(height: 21),
-              const SubTitleWidget(text: "Best Product"),
-              const SizedBox(height: 35),
-              Container(
-                width: 145,
-                height: 96,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: "http://via.placeholder.com/350x150",
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              )
-            ],
-          ),
+          child: GetBuilder<HomeController>(
+            builder: (controller) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 19),
+                  const TitleWidget(text: "Our Portfolio"),
+                  const SizedBox(height: 21),
+                  const SubTitleWidget(text: "Best Product"),
+                  const SizedBox(height: 35),
+                  controller.bestProducts.isEmpty
+                      ? const Center(
+                    child: Text("No Data"),
+                  )
+                      : SizedBox(
+                    height: 96,
+                    child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      itemCount: controller.bestProducts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = controller.bestProducts[index];
+                        final isLastItem =
+                            index == controller.bestProducts.length - 1;
+
+                        return ProductImageWidget(
+                          imgUrl: product.imageUrl,
+                          isLastItem: isLastItem,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          )
         ),
       ),
     );
