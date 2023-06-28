@@ -22,22 +22,31 @@ class ApiClient extends http.BaseClient {
   @override
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) {
     return super.get(url, headers: headers).then((value) {
-      Logger.root.info("response => ${value.body}");
+      Logger.root.info(
+          "============================RESPONSE============================");
+      Logger.root.info(value.body);
+      Logger.root.info(
+          "================================================================");
       return value;
     }).catchError((err) {
-      Logger.root.warning('error => ${err.toString()}');
+      debugPrint(err.toString());
     });
   }
 
   @override
   Future<http.Response> post(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
-    return post(url, headers: headers, body: body, encoding: encoding)
+      {Map<String, String>? headers, body, Encoding? encoding}) {
+    return super
+        .post(url, headers: headers, body: body, encoding: encoding)
         .then((value) {
-      Logger.root.info("response => ${value.body}");
+      Logger.root.info(
+          "============================RESPONSE============================");
+      Logger.root.info(value.body);
+      Logger.root.info(
+          "================================================================");
       return value;
     }).catchError((err) {
-      Logger.root.warning('error => ${err.toString()}');
+      debugPrint(err.toString());
     });
   }
 }
