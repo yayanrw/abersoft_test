@@ -1,4 +1,7 @@
-import 'package:abersoft_test/app/presentation/widgets/images/product_image_widget.dart';
+import 'package:abersoft_test/app/presentation/widgets/grid_views/products_grid_view.dart';
+import 'package:abersoft_test/app/presentation/widgets/list_views/products_list_view.dart';
+import 'package:abersoft_test/app/presentation/widgets/shimmers/products_grid_shimmer_widget.dart';
+import 'package:abersoft_test/app/presentation/widgets/shimmers/products_horizontal_shimmer_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/SubTitleWidget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/TitleWidget.dart';
 import 'package:flutter/material.dart';
@@ -13,46 +16,31 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: GetBuilder<HomeController>(
-            builder: (controller) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 19),
-                  const TitleWidget(text: "Our Portfolio"),
-                  const SizedBox(height: 21),
-                  const SubTitleWidget(text: "Best Product"),
-                  const SizedBox(height: 35),
-                  controller.bestProducts.isEmpty
-                      ? const Center(
-                    child: Text("No Data"),
-                  )
-                      : SizedBox(
-                    height: 96,
-                    child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      itemCount: controller.bestProducts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final product = controller.bestProducts[index];
-                        final isLastItem =
-                            index == controller.bestProducts.length - 1;
-
-                        return ProductImageWidget(
-                          imgUrl: product.imageUrl,
-                          isLastItem: isLastItem,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
-          )
-        ),
+        child: SingleChildScrollView(child: GetBuilder<HomeController>(
+          builder: (controller) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 19),
+                const TitleWidget(text: "Our Portfolio"),
+                const SizedBox(height: 21),
+                const SubTitleWidget(text: "Best Product"),
+                const SizedBox(height: 35),
+                controller.isLoading
+                    ? const ProductHorizontalShimmerWidget()
+                    : ProductsListView(products: controller.bestProducts),
+                const SizedBox(height: 28),
+                const SubTitleWidget(text: "All Product"),
+                const SizedBox(height: 21),
+                controller.isLoading
+                    ? const ProductsGridShimmerWidget()
+                    : ProductsGridView(products: controller.allProducts),
+                const SizedBox(height: 24),
+              ],
+            );
+          },
+        )),
       ),
     );
   }
