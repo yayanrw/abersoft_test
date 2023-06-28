@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:abersoft_test/app/core/networking/api_client.dart';
-import 'package:abersoft_test/app/core/utils/exceptions.dart';
 import 'package:abersoft_test/app/core/utils/network_helper.dart';
 import 'package:abersoft_test/app/data/datasources/remote/models/end_points.dart';
 import 'package:abersoft_test/app/data/datasources/remote/requests/login_request.dart';
@@ -23,11 +22,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       body: jsonEncode(loginRequest.toJson()),
     );
 
-    if (response.statusCode == 200) {
-      return LoginResponse.fromJson(jsonDecode(response.body));
-    } else {
-      NetworkHelper.throwExceptionIfClientError(response);
-      throw ServerException();
-    }
+    final res = NetworkHelper.throwExceptionIfClientError(response);
+    return LoginResponse.fromJson(jsonDecode(res.body));
   }
 }

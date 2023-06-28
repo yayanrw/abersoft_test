@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:abersoft_test/app/core/networking/api_client.dart';
-import 'package:abersoft_test/app/core/utils/exceptions.dart';
 import 'package:abersoft_test/app/core/utils/network_helper.dart';
 import 'package:abersoft_test/app/data/datasources/remote/dtos/product_dto.dart';
 import 'package:abersoft_test/app/data/datasources/remote/models/end_points.dart';
@@ -37,12 +36,8 @@ class ProductDataSourceImpl implements ProductDataSource {
           'productDescription': productDescription,
         }));
 
-    if (response.statusCode == 200) {
-      return ProductDto.fromJson(jsonDecode(response.body));
-    } else {
-      NetworkHelper.throwExceptionIfClientError(response);
-      throw ServerException();
-    }
+    final res = NetworkHelper.throwExceptionIfClientError(response);
+    return ProductDto.fromJson(jsonDecode(res.body));
   }
 
   @override
@@ -52,11 +47,7 @@ class ProductDataSourceImpl implements ProductDataSource {
       headers: NetworkHelper.headerWithToken("token"),
     );
 
-    if (response.statusCode == 200) {
-      return ProductsResponse.fromJson(jsonDecode(response.body));
-    } else {
-      NetworkHelper.throwExceptionIfClientError(response);
-      throw ServerException();
-    }
+    final res = NetworkHelper.throwExceptionIfClientError(response);
+    return ProductsResponse.fromJson(jsonDecode(res.body));
   }
 }

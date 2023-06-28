@@ -17,11 +17,17 @@ class NetworkHelper {
     return {...defaultHeader, 'Authorization': 'Bearer $token'};
   }
 
-  static void throwExceptionIfClientError(http.Response response) {
-    if (response.statusCode >= 400 && response.statusCode <= 499) {
+  static http.Response throwExceptionIfClientError(http.Response response) {
+    if (response.statusCode == 200) {
+      return response;
+    } else if (response.statusCode >= 400 && response.statusCode <= 499) {
       final errorResponse = jsonDecode(response.body);
       final message = errorResponse['error']['message'];
       throw ApplicationException(message);
+    } else if (response.statusCode >= 500 && response.statusCode <= 599) {
+      throw ServerException();
+    } else {
+      throw const SocketException("No internet connection");
     }
   }
 
@@ -68,7 +74,7 @@ class NetworkHelper {
       );
     } on ServerException {
       SnackBarHelper.error(
-        title: "Server Error",
+        title: "Something Went Wrong!",
         message:
             "An error occured when connecting to the server, please try again.",
       );
