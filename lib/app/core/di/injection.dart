@@ -2,6 +2,7 @@ import 'package:abersoft_test/app/core/di/local_data_source_bindings.dart';
 import 'package:abersoft_test/app/core/di/remote_data_source_bindings.dart';
 import 'package:abersoft_test/app/core/di/repository_bindings.dart';
 import 'package:abersoft_test/app/core/di/storage_service.dart';
+import 'package:abersoft_test/app/core/di/usecase_bindings.dart';
 import 'package:abersoft_test/app/core/networking/api_client.dart';
 import 'package:abersoft_test/app/data/datasources/remote/models/end_points.dart';
 import 'package:get/get.dart';
@@ -18,5 +19,6 @@ class Injection {
     RepositoryBindings().dependencies();
     LocalDataSourceBindings().dependencies();
     RemoteDataSourceBindings().dependencies();
+    UseCaseBindings().dependencies();
   }
 }
