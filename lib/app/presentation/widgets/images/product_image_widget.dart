@@ -15,7 +15,7 @@ class ProductImageWidget extends StatelessWidget {
       height: 96,
       margin: EdgeInsets.only(right: isLastItem ? 0 : 10),
       decoration: const BoxDecoration(
-        color: Colors.grey,
+        // color: Color(0xFFD9D9D9),
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       child: ClipRRect(
@@ -23,8 +23,6 @@ class ProductImageWidget extends StatelessWidget {
         child: CachedNetworkImage(
           fit: BoxFit.fitWidth,
           imageUrl: imgUrl,
-          placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       ),
