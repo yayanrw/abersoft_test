@@ -8,16 +8,19 @@ class ProductHorizontalShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const totalItem = 5;
 
-    return ListView.builder(
-      physics: const AlwaysScrollableScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      itemCount: totalItem,
-      // Total number of items
-      itemBuilder: (BuildContext context, int index) {
-        final isLastItem = index == totalItem - 1;
-        return ProductShimmerWidget(isLastItem: isLastItem);
-      },
+    return SizedBox(
+      height: 96,
+      child: ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        itemCount: totalItem,
+        // Total number of items
+        itemBuilder: (BuildContext context, int index) {
+          final isLastItem = index == totalItem - 1;
+          return ProductShimmerWidget(isLastItem: isLastItem);
+        },
+      ),
     );
   }
 }
