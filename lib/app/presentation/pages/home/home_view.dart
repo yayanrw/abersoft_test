@@ -28,33 +28,31 @@ class HomeView extends GetView<HomeController> {
             ),
           ],
         ),
-        body: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              await controller.getProducts();
-            },
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 19),
-                  const TitleWidget(text: "Our Portfolio"),
-                  const SizedBox(height: 21),
-                  const SubTitleWidget(text: "Best Product"),
-                  const SizedBox(height: 35),
-                  controller.isLoading
-                      ? const ProductHorizontalShimmerWidget()
-                      : ProductsListView(products: controller.bestProducts),
-                  const SizedBox(height: 28),
-                  const SubTitleWidget(text: "All Product"),
-                  const SizedBox(height: 21),
-                  controller.isLoading
-                      ? const ProductsGridShimmerWidget()
-                      : ProductsGridView(products: controller.allProducts),
-                  const SizedBox(height: 24),
-                ],
-              ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await controller.getProducts();
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 19),
+                const TitleWidget(text: "Our Portfolio"),
+                const SizedBox(height: 21),
+                const SubTitleWidget(text: "Best Product"),
+                const SizedBox(height: 35),
+                controller.isLoading
+                    ? const ProductHorizontalShimmerWidget()
+                    : ProductsListView(products: controller.bestProducts),
+                const SizedBox(height: 28),
+                const SubTitleWidget(text: "All Product"),
+                const SizedBox(height: 21),
+                controller.isLoading
+                    ? const ProductsGridShimmerWidget()
+                    : ProductsGridView(products: controller.allProducts),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
         ),
