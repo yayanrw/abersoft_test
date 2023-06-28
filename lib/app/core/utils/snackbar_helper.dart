@@ -35,4 +35,21 @@ class SnackBarHelper {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
+
+  static warning({
+    String title = "Warning",
+    String message = "Warning Description",
+  }) {
+    Get.snackbar(
+      title,
+      message,
+      margin: const EdgeInsets.all(16),
+      icon: const Icon(
+        Icons.warning_rounded,
+        color: Colors.orange,
+        key: Key("snack_bar_warning"),
+      ),
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
 }
