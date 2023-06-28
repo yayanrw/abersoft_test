@@ -19,7 +19,6 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
-      transition: Transition.downToUp,
     ),
     GetPage(
       name: _Paths.LOG_IN,
