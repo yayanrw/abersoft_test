@@ -21,7 +21,7 @@ class ProductImageWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
         child: CachedNetworkImage(
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
           imageUrl: imgUrl,
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
