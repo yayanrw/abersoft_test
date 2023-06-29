@@ -2,6 +2,7 @@
     package="com.heyproject.abersoft_test">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:label="abersoft_test"
