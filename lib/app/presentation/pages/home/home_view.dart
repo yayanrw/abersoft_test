@@ -1,6 +1,6 @@
 import 'package:abersoft_test/app/presentation/widgets/grid_views/products_grid_view.dart';
 import 'package:abersoft_test/app/presentation/widgets/list_views/products_list_view.dart';
-import 'package:abersoft_test/app/presentation/widgets/lotties/no_data_widget.dart';
+import 'package:abersoft_test/app/presentation/widgets/lotties/no_data_lottie_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/shimmers/products_grid_shimmer_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/shimmers/products_horizontal_shimmer_widget.dart';
 import 'package:abersoft_test/app/presentation/widgets/texts/SubTitleWidget.dart';
@@ -35,8 +35,8 @@ class HomeView extends GetView<HomeController> {
           },
           child: controller.allProducts.isEmpty &&
                   controller.bestProducts.isEmpty &&
-                  !controller.isLoading
-              ? const NoDataWidget()
+                  controller.isLoading
+              ? const NoDataLottieWidget()
               : SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

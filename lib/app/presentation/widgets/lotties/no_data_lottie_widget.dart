@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class NoDataWidget extends StatelessWidget {
-  const NoDataWidget({super.key});
+class NoDataLottieWidget extends StatelessWidget {
+  const NoDataLottieWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
