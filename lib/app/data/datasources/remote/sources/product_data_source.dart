@@ -29,7 +29,6 @@ class ProductDataSourceImpl implements ProductDataSource {
   }) async {
     final response = await _apiClient.post(
         NetworkHelper.genUri(_endPoints.productEndPoints.resource),
-        headers: NetworkHelper.headerWithToken("token"),
         body: jsonEncode({
           'productName': productName,
           'productImage': productImagePaths,
@@ -44,7 +43,6 @@ class ProductDataSourceImpl implements ProductDataSource {
   Future<ProductsResponse> fetchProducts() async {
     final response = await _apiClient.get(
       NetworkHelper.genUri(_endPoints.productEndPoints.resource),
-      headers: NetworkHelper.headerWithToken("token"),
     );
 
     final res = NetworkHelper.throwExceptionIfClientError(response);

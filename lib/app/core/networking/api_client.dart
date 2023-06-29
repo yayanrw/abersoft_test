@@ -1,16 +1,29 @@
 import 'dart:convert';
 
+import 'package:abersoft_test/app/core/utils/network_helper.dart';
+import 'package:abersoft_test/app/domain/usecases/get_token.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:get/get.dart';
 
 class ApiClient extends http.BaseClient {
+  final GetToken _getToken = Get.find<GetToken>();
+
   @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) {
+  Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    final token = await _getToken.exec();
+
     Logger.root.info(
-        'request => ${request.method} (${request.url}) \n ${request.headers}');
+        '============================REQUEST============================');
+
+    if (token != "") {
+      request.headers.addAll(NetworkHelper.headerWithToken(token));
+    }
+
     return request.send().then((value) {
-      debugPrint('${value.statusCode} ${value.reasonPhrase}');
+      Logger.root.info('${value.statusCode} ${request.method} ${request.url}');
+      Logger.root.info('${request.headers}');
       return value;
     }).catchError((err) async {
       Logger.root.warning('error => ${err.toString()}');
