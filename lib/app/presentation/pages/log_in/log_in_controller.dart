@@ -14,8 +14,17 @@ class LogInController extends GetxController {
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>(debugLabel: 'Login Form');
 
   RxBool isLoading = false.obs;
+
+  @override
+  void dispose() {
+    formKey.currentState?.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   void onInit() async {
@@ -25,13 +34,6 @@ class LogInController extends GetxController {
     if (userCredentials.isLoggedIn) {
       Get.offAllNamed(Routes.HOME);
     }
-  }
-
-  @override
-  void dispose() {
-    usernameController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 
   void handleLogin() async {

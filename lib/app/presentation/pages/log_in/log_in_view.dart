@@ -11,8 +11,6 @@ class LogInView extends GetView<LogInController> {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -21,7 +19,7 @@ class LogInView extends GetView<LogInController> {
             child: SizedBox(
               width: double.infinity,
               child: Form(
-                key: formKey,
+                key: controller.formKey,
                 autovalidateMode: AutovalidateMode.always,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -47,7 +45,7 @@ class LogInView extends GetView<LogInController> {
                           text: "LOGIN",
                           isLoading: controller.isLoading.value,
                           onPressed: () {
-                            final form = formKey.currentState;
+                            final form = controller.formKey.currentState;
                             if (form != null && form.validate()) {
                               controller.handleLogin();
                             }

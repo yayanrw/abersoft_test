@@ -12,61 +12,74 @@ class CreateProductView extends GetView<CreateProductController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CreateProductController>(builder: (controller) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Create New Product'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 26,
-              ),
-              const TitleWidget(text: "Create Product"),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 63),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 46),
-                    ProductImagePickerWidget(
-                      onTap: () {
-                        controller.pickImage();
-                      },
-                      image: controller.pickedImage,
-                    ),
-                    const SizedBox(height: 35),
-                    InputTextWidget(
-                      controller: controller.productNameController,
-                      hintText: "Product Name",
-                      textAlign: TextAlign.start,
-                    ),
-                    const SizedBox(height: 9),
-                    InputTextWidget(
-                      minLines: 6,
-                      controller: controller.productDescriptionController,
-                      hintText: "Product Description",
-                      textAlign: TextAlign.start,
-                    ),
-                    const SizedBox(height: 28),
-                    ButtonWidget(
-                      text: "Upload",
-                      isLoading: controller.isLoading,
-                      onPressed: () {
-                        controller.handleUpload();
-                      },
-                    )
-                  ],
-                ),
-              )
-            ],
+    return GetBuilder<CreateProductController>(
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Create New Product'),
           ),
-        ),
-      );
-    });
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 26,
+                ),
+                const TitleWidget(text: "Create Product"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 63),
+                  child: Form(
+                    key: controller.formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 46),
+                        ProductImagePickerWidget(
+                          onTap: () {
+                            controller.pickImage();
+                          },
+                          image: controller.pickedImage,
+                        ),
+                        const SizedBox(height: 35),
+                        InputTextWidget(
+                          controller: controller.productNameController,
+                          hintText: "Product Name",
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 9),
+                        InputTextWidget(
+                          minLines: 6,
+                          controller: controller.productDescriptionController,
+                          hintText: "Product Description",
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 28),
+                        Obx(
+                          () {
+                            return ButtonWidget(
+                              text: "Upload",
+                              isLoading: controller.isLoading.value,
+                              onPressed: () {
+                                final form = controller.formKey.currentState;
+                                if (form != null && form.validate()) {
+                                  controller.handleUpload();
+                                }
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 32),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

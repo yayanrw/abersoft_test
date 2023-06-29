@@ -1,3 +1,4 @@
+import 'package:abersoft_test/app/core/utils/snackbar_helper.dart';
 import 'package:abersoft_test/app/domain/repositories/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,8 +15,10 @@ class CreateProductController extends GetxController {
 
   XFile? pickedImage;
 
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
   bool _isPermissionGranted = false;
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -58,6 +61,9 @@ class CreateProductController extends GetxController {
   }
 
   Future<void> handleUpload() async {
-    pickedImage;
-  }
+    if (pickedImage == null) {
+      SnackBarHelper.warning(message: "The image is required");
+      return;
+    }
+   }
 }
