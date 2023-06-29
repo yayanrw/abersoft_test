@@ -1,9 +1,22 @@
+import 'package:abersoft_test/app/domain/repositories/product_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CreateProductController extends GetxController {
-  //TODO: Implement CreateProductController
+  final ProductRepository _productRepository = Get.find<ProductRepository>();
 
-  final count = 0.obs;
+  final productNameController = TextEditingController();
+  final productDescriptionController = TextEditingController();
+
+  final ImagePicker _imagePicker = ImagePicker();
+
+  late XFile image;
+
+  bool isLoading = false;
+  bool _isPermissionGranted = false;
+
   @override
   void onInit() {
     super.onInit();
@@ -12,6 +25,7 @@ class CreateProductController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    _getStoragePermission();
   }
 
   @override
@@ -19,5 +33,31 @@ class CreateProductController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> _getStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+      _isPermissionGranted = true;
+    } else if (await Permission.storage.request().isPermanentlyDenied) {
+      await openAppSettings();
+    } else if (await Permission.storage.request().isDenied) {
+      _isPermissionGranted = false;
+    }
+    update();
+  }
+
+  Future<void> pickImage() async {
+    if (!_isPermissionGranted) {
+      return _getStoragePermission();
+    }
+
+    final pickedImage = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+
+    if (pickedImage != null) {
+      image = XFile(pickedImage.path);
+    }
+  }
+
+  Future<void> handleUpload() async {}
 }
