@@ -13,7 +13,10 @@ class NoDataLottieWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Lottie.asset('assets/lottie/no_data.json'),
+        Lottie.asset('assets/lottie/no-data.json'),
+        const SizedBox(height: 16),
+        const Text("No Data"),
+        const SizedBox(height: 40),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 120),
           child: ButtonWidget(
