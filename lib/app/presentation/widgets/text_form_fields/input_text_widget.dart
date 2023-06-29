@@ -6,12 +6,14 @@ class InputTextWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    required this.isObscureText,
+    this.isObscureText = false,
+    this.textAlign = TextAlign.center,
   });
 
   final TextEditingController controller;
   final String hintText;
   final bool isObscureText;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,12 @@ class InputTextWidget extends StatelessWidget {
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Color(0xFFADADAD))),
-          contentPadding: const EdgeInsets.symmetric(vertical: 11)),
+          contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 11)),
       style: const TextStyle(
         fontSize: 12,
         color: Colors.black,
       ),
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
       validator: ValidationBuilder().required().build(),
     );
   }
