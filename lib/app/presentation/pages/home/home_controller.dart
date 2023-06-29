@@ -38,11 +38,9 @@ class HomeController extends GetxController {
         bestProducts.assignAll(response.bestProduct);
         allProducts.assignAll(response.allProduct);
       }),
-      onError: ((response) async {
-        isLoading = false;
-        update();
-      }),
-      onDone: () {
+      onDone: () async {
+        //show shimmer effect
+        await Future.delayed(1.seconds);
         isLoading = false;
         update();
       },
