@@ -83,11 +83,6 @@ class CreateProductController extends GetxController {
           isLoading.value = false;
         },
       );
-      await _productRepository.addProduct(
-        productName: productNameController.text.trim(),
-        productImage: pickedImage!,
-        productDescription: productDescriptionController.text.trim(),
-      );
     }
   }
 }
