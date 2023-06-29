@@ -35,7 +35,7 @@ class HomeView extends GetView<HomeController> {
           },
           child: controller.allProducts.isEmpty &&
                   controller.bestProducts.isEmpty &&
-                  controller.isLoading
+                  !controller.isLoading
               ? const NoDataLottieWidget()
               : SingleChildScrollView(
                   child: Column(
