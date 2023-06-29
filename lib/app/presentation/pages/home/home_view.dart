@@ -36,7 +36,9 @@ class HomeView extends GetView<HomeController> {
           child: controller.allProducts.isEmpty &&
                   controller.bestProducts.isEmpty &&
                   !controller.isLoading
-              ? const NoDataLottieWidget()
+              ? NoDataLottieWidget(onPressed: () async {
+                  await controller.getProducts();
+                })
               : SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
