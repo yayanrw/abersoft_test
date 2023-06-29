@@ -17,8 +17,10 @@ class ApiClient extends http.BaseClient {
     Logger.root.info(
         '============================REQUEST============================');
 
-    if (token != "") {
+    if (token != "" && token != "N/A") {
       request.headers.addAll(NetworkHelper.headerWithToken(token));
+    } else {
+      request.headers.addAll(NetworkHelper.defaultHeader);
     }
 
     return request.send().then((value) {
