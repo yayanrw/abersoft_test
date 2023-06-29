@@ -8,16 +8,20 @@ class InputTextWidget extends StatelessWidget {
     required this.hintText,
     this.isObscureText = false,
     this.textAlign = TextAlign.center,
+    this.minLines = 1,
   });
 
   final TextEditingController controller;
   final String hintText;
   final bool isObscureText;
   final TextAlign textAlign;
+  final int minLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      minLines: minLines,
+      maxLines: minLines,
       obscureText: isObscureText,
       keyboardType: TextInputType.text,
       controller: controller,
