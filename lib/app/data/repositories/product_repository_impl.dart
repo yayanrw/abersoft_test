@@ -6,6 +6,7 @@ import 'package:abersoft_test/app/domain/entities/products.dart';
 import 'package:abersoft_test/app/domain/repositories/product_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductDataSource _productDataSource = Get.find<ProductDataSource>();
@@ -13,13 +14,13 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, Product>> addProduct({
     required String productName,
-    required List<String> productImagePaths,
+    required XFile productImage,
     required String productDescription,
   }) {
     return NetworkHelper.executeSafely(() async {
       final response = await _productDataSource.fetchAddProduct(
         productName: productName,
-        productImagePaths: productImagePaths,
+        productImage: productImage,
         productDescription: productDescription,
       );
 

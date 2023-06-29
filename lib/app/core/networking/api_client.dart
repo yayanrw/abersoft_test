@@ -22,8 +22,13 @@ class ApiClient extends http.BaseClient {
     }
 
     return request.send().then((value) {
+      Logger.root.info(
+          "============================RESPONSE============================");
       Logger.root.info('${value.statusCode} ${request.method} ${request.url}');
       Logger.root.info('${request.headers}');
+      Logger.root.info(value.stream);
+      Logger.root.info(
+          "================================================================");
       return value;
     }).catchError((err) async {
       Logger.root.warning('error => ${err.toString()}');

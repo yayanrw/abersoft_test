@@ -1,5 +1,8 @@
+import 'package:abersoft_test/app/core/utils/network_helper.dart';
 import 'package:abersoft_test/app/core/utils/snackbar_helper.dart';
+import 'package:abersoft_test/app/domain/entities/product.dart';
 import 'package:abersoft_test/app/domain/repositories/product_repository.dart';
+import 'package:abersoft_test/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -61,9 +64,30 @@ class CreateProductController extends GetxController {
   }
 
   Future<void> handleUpload() async {
+    isLoading.value = true;
     if (pickedImage == null) {
       SnackBarHelper.warning(message: "The image is required");
-      return;
+    } else {
+      await NetworkHelper.callDataService<Product>(
+        () => _productRepository.addProduct(
+          productName: productNameController.text.trim(),
+          productImage: pickedImage!,
+          productDescription: productDescriptionController.text.trim(),
+        ),
+        onSuccess: ((response) async {
+          SnackBarHelper.success(message: "Image uploaded successfully.");
+          await Future.delayed(1.seconds);
+          Get.offAllNamed(Routes.HOME);
+        }),
+        onDone: () async {
+          isLoading.value = false;
+        },
+      );
+      await _productRepository.addProduct(
+        productName: productNameController.text.trim(),
+        productImage: pickedImage!,
+        productDescription: productDescriptionController.text.trim(),
+      );
     }
-   }
+  }
 }

@@ -31,6 +31,22 @@ class NetworkHelper {
     }
   }
 
+  static Future<http.StreamedResponse> throwExceptionIfClientErrorStreamed(
+      http.StreamedResponse response) async {
+    if (response.statusCode == 200) {
+      return response;
+    } else if (response.statusCode >= 400 && response.statusCode <= 499) {
+      final responseBody = await response.stream.bytesToString();
+      final errorResponse = jsonDecode(responseBody);
+      final message = errorResponse['error']['message'];
+      throw ApplicationException(message);
+    } else if (response.statusCode >= 500 && response.statusCode <= 599) {
+      throw ServerException();
+    } else {
+      throw const SocketException("No internet connection");
+    }
+  }
+
   static Future<Either<Failure, T>> executeSafely<T>(
       Future<T> Function() action) async {
     try {
