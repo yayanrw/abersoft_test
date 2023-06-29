@@ -6,19 +6,21 @@ import 'create_product_controller.dart';
 
 class CreateProductView extends GetView<CreateProductController> {
   const CreateProductView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CreateProductView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'CreateProductView is working',
-          style: TextStyle(fontSize: 20),
+    return GetBuilder<CreateProductController>(builder: (controller) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Create New Product'),
         ),
-      ),
-    );
+        body: const Center(
+          child: Text(
+            'CreateProductView is working',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    });
   }
 }
