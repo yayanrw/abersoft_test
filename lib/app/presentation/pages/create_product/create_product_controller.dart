@@ -12,7 +12,7 @@ class CreateProductController extends GetxController {
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  late XFile image;
+  XFile? pickedImage;
 
   bool isLoading = false;
   bool _isPermissionGranted = false;
@@ -49,15 +49,15 @@ class CreateProductController extends GetxController {
       return _getStoragePermission();
     }
 
-    final pickedImage = await _imagePicker.pickImage(
+    pickedImage = await _imagePicker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 80,
     );
-
-    if (pickedImage != null) {
-      image = XFile(pickedImage.path);
-    }
+    if (pickedImage == null) return;
+    update();
   }
 
-  Future<void> handleUpload() async {}
+  Future<void> handleUpload() async {
+    pickedImage;
+  }
 }
