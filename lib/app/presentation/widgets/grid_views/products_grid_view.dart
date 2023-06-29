@@ -13,28 +13,39 @@ class ProductsGridView extends StatelessWidget {
     return products.isEmpty
         ? const NoDataTextWidget()
         : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 19),
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 96,
-                mainAxisSpacing: 27,
-                crossAxisSpacing: (MediaQuery.of(context).size.width / 5) + 4,
-                childAspectRatio: 1,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final Product product = products[index];
+      padding: const EdgeInsets.symmetric(horizontal: 19),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double screenWidth = MediaQuery.of(context).size.width;
+          int crossAxisCount = 2;
 
-                return ProductImageWidget(
-                  key: Key("product_grid_${product.id.toString()}"),
-                  imgUrl: product.imageUrl,
-                  isLastItem: true,
-                );
-              },
+          if (screenWidth >= 600) {
+            crossAxisCount = 3;
+          }
+
+          return GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              mainAxisExtent: 96,
+              mainAxisSpacing: 27,
+              crossAxisSpacing: (MediaQuery.of(context).size.width / 5) + 4,
+              childAspectRatio: 1,
             ),
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              final Product product = products[index];
+
+              return ProductImageWidget(
+                key: Key("product_grid_${product.id.toString()}"),
+                imgUrl: product.imageUrl,
+                isLastItem: true,
+              );
+            },
           );
+        },
+      ),
+    );
   }
 }
