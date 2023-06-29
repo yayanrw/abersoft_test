@@ -40,12 +40,15 @@ class CreateProductController extends GetxController {
   }
 
   Future<void> _getStoragePermission() async {
-    if (await Permission.storage.request().isGranted) {
+    var status = await Permission.storage.request();
+    if (status.isGranted) {
       _isPermissionGranted = true;
-    } else if (await Permission.storage.request().isPermanentlyDenied) {
-      await openAppSettings();
-    } else if (await Permission.storage.request().isDenied) {
+    } else if (status.isDenied) {
       _isPermissionGranted = false;
+      SnackBarHelper.warning(message: "Storage permission denied");
+    } else if (status.isPermanentlyDenied) {
+      _isPermissionGranted = false;
+      SnackBarHelper.warning(message: "Storage permission permanently denied. Grant it through apps setting.");
     }
     update();
   }
