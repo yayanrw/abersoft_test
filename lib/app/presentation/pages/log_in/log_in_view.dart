@@ -33,7 +33,6 @@ class LogInView extends GetView<LogInController> {
                     InputTextWidget(
                       controller: controller.usernameController,
                       hintText: "Username",
-                      isObscureText: false,
                     ),
                     const SizedBox(height: 16),
                     InputTextWidget(
